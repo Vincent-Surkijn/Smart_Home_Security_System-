@@ -1,0 +1,53 @@
+pi@raspberrypi:~/Desktop/real-one/compu21/bluetooth $ npm install
+npm WARN deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142
+npm WARN deprecated har-validator@5.1.5: this library is no longer supported
+npm WARN deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+
+> canvas@2.8.0 install /home/pi/Desktop/real-one/compu21/bluetooth/node_modules/canvas
+> node-pre-gyp install --fallback-to-build
+
+node-pre-gyp ERR! install response status 404 Not Found on https://github.com/Automattic/node-canvas/releases/download/v2.8.0/canvas-v2.8.0-node-v72-linux-glibc-arm.tar.gz 
+node-pre-gyp WARN Pre-built binaries not installable for canvas@2.8.0 and node@12.14.1 (node-v72 ABI, glibc) (falling back to source compile with node-gyp) 
+node-pre-gyp WARN Hit error response status 404 Not Found on https://github.com/Automattic/node-canvas/releases/download/v2.8.0/canvas-v2.8.0-node-v72-linux-glibc-arm.tar.gz 
+Package pixman-1 was not found in the pkg-config search path.
+Perhaps you should add the directory containing `pixman-1.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'pixman-1' found
+gyp: Call to 'pkg-config pixman-1 --libs' returned exit status 1 while in binding.gyp. while trying to load binding.gyp
+gyp ERR! configure error 
+gyp ERR! stack Error: `gyp` failed with exit code: 1
+gyp ERR! stack     at ChildProcess.onCpExit (/usr/local/lib/node_modules/node-gyp/lib/configure.js:259:16)
+gyp ERR! stack     at ChildProcess.emit (events.js:223:5)
+gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:272:12)
+gyp ERR! System Linux 5.10.63-v7+
+gyp ERR! command "/home/pi/.config/nvm/versions/node/v12.14.1/bin/node" "/usr/local/bin/node-gyp" "configure" "--fallback-to-build" "--module=/home/pi/Desktop/real-one/compu21/bluetooth/node_modules/canvas/build/Release/canvas.node" "--module_name=canvas" "--module_path=/home/pi/Desktop/real-one/compu21/bluetooth/node_modules/canvas/build/Release" "--napi_version=5" "--node_abi_napi=napi" "--napi_build_version=0" "--node_napi_label=node-v72" "--python=/usr/bin/python"
+gyp ERR! cwd /home/pi/Desktop/real-one/compu21/bluetooth/node_modules/canvas
+gyp ERR! node -v v12.14.1
+gyp ERR! node-gyp -v v8.4.1
+gyp ERR! not ok 
+node-pre-gyp ERR! build error 
+node-pre-gyp ERR! stack Error: Failed to execute '/home/pi/.config/nvm/versions/node/v12.14.1/bin/node /usr/local/bin/node-gyp configure --fallback-to-build --module=/home/pi/Desktop/real-one/compu21/bluetooth/node_modules/canvas/build/Release/canvas.node --module_name=canvas --module_path=/home/pi/Desktop/real-one/compu21/bluetooth/node_modules/canvas/build/Release --napi_version=5 --node_abi_napi=napi --napi_build_version=0 --node_napi_label=node-v72 --python=/usr/bin/python' (1)
+node-pre-gyp ERR! stack     at ChildProcess.<anonymous> (/home/pi/Desktop/real-one/compu21/bluetooth/node_modules/@mapbox/node-pre-gyp/lib/util/compile.js:89:23)
+node-pre-gyp ERR! stack     at ChildProcess.emit (events.js:223:5)
+node-pre-gyp ERR! stack     at maybeClose (internal/child_process.js:1021:16)
+node-pre-gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:283:5)
+node-pre-gyp ERR! System Linux 5.10.63-v7+
+node-pre-gyp ERR! command "/home/pi/.config/nvm/versions/node/v12.14.1/bin/node" "/home/pi/Desktop/real-one/compu21/bluetooth/node_modules/.bin/node-pre-gyp" "install" "--fallback-to-build"
+node-pre-gyp ERR! cwd /home/pi/Desktop/real-one/compu21/bluetooth/node_modules/canvas
+node-pre-gyp ERR! node -v v12.14.1
+node-pre-gyp ERR! node-pre-gyp -v v1.0.8
+node-pre-gyp ERR! not ok 
+Failed to execute '/home/pi/.config/nvm/versions/node/v12.14.1/bin/node /usr/local/bin/node-gyp configure --fallback-to-build --module=/home/pi/Desktop/real-one/compu21/bluetooth/node_modules/canvas/build/Release/canvas.node --module_name=canvas --module_path=/home/pi/Desktop/real-one/compu21/bluetooth/node_modules/canvas/build/Release --napi_version=5 --node_abi_napi=napi --napi_build_version=0 --node_napi_label=node-v72 --python=/usr/bin/python' (1)
+npm WARN node_project@1.0.0 No description
+npm WARN node_project@1.0.0 No repository field.
+
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! canvas@2.8.0 install: `node-pre-gyp install --fallback-to-build`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the canvas@2.8.0 install script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/pi/.npm/_logs/2022-01-18T23_02_40_744Z-debug.log

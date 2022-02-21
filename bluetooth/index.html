@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="./style" >
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.min.js"></script>
+	
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/addons/p5.sound.min.js"></script>
+        <script type="text/javascript" src="./libraries/p5.speech.js"></script>
+    
+        <script type="text/javascript" src="./audio.js"></script>
+        <script type="text/javascript" src="./smoothie.js"></script>
+        <title>Home Security System</title>
+    </head>
+    
+    <body>
+        <input id="micLevel" type="hidden" name="micLevel" class="micLevel" value="0.001"></input>
+        <h1>Home Security System</h1>
+        <h2>Set your preferences:</h2>
+        <form action="/" method="post">
+            <div id="majorFrame">
+                <div class="box microphone">
+                    <div>
+                        Start recording sound?
+                    </div>
+                    <div id="microphone"></div>
+                </div>
+                <div class="divCheckbox box">
+                    <div class="innerDiv">
+                        Alarm On?
+                    </div>
+                    <div class="innerDiv right">
+                        Current: <input id="prevAlarmBtn" type="checkbox" name="prevAlarmBtn" class="cbox" disabled></input>
+                        <p></p>
+                        New: <input id="alarmBtn" type="checkbox" name="alarmBtn" class="cbox" value="yes"></input>
+                    </div>
+                </div>
+
+                <div class="divCheckbox box">
+                    <div class="innerDiv">
+                        Door Locked?
+                    </div>
+                    <div class="innerDiv right">
+                        Current: <input id="prevDoorBtn" type="checkbox" name="prevDoorBtn" class="cbox" disabled></input>
+                        <p></p>
+                        New: <input id="doorBtn" type="checkbox" name="doorBtn" class="cbox" value="yes"></input>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="innerDiv">
+                        Please provide a value of light intensity at which the lights will turn on and the curtains will close
+                    </div>
+                    <div class="innerDiv right">
+                        Current: <input id="prevLightValue" type="number" class="textbox" name="valueTurnLightsOnOrNot" disabled></input>
+                        <p></p>
+                        New: <input id="lightValue" type="number" class="textbox" name="valueTurnLightsOnOrNot" min="0" max="100" value=""></input>
+                    </div>
+                </div>
+                
+                <div class="box">
+                    <div class="innerDiv">
+                        Please provide a value at which the air conditioner will turn on
+                    </div>
+                    <div class="innerDiv right">
+                        Current: <input id="prevTemperatureValue" type="number" class="textbox" name="valueTurnACOnOrNot" disabled>ºC</input>
+                        <p></p>
+                        New: <input id="temperatureValue" type="number" class="textbox" name="valueTurnACOnOrNot" min="5" max="40" value="">ºC</input>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="innerDiv">
+                        At what time do you want to turn on the alarm?
+                    </div>
+                    <div class="innerDiv right">
+                        Current: <input id="prevDatetimeAlarm" name="prevDatetimeAlarm" disabled></label>
+                        <p></p>
+                        New: <input id="datetimeAlarm" type="datetime-local" name="datetimeAlarm"></input>
+                    </div>
+                </div>
+                <button type="submit" class="submit" name="submit" >
+                    Set Preferences
+                </button>
+            </div>
+        </form>
+
+        <h2>Current values:</h2>
+        
+        <h3>Temperature = <span id="temperature"></span></h3>
+        <canvas id="chartTemperature" width="1000" height="400"></canvas>
+
+        <h3>Light intensity = <span id="light"></span></h3>
+        <canvas id="chartLight" width="1000" height="400"></canvas>
+    </body>
+
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function() { 
+
+        if(document.getElementById("doorBtn").checked) {
+            document.getElementById('doorBtnHidden').disabled = true;
+        }
+        if(document.getElementById("alarmBtn").checked) {
+            document.getElementById('alarmBtnHidden').disabled = true;
+        }
+        /**
+         * Create the smoothie chart backbone
+         */
+        var ts1 = new TimeSeries();
+        var ts2 = new TimeSeries();
+
+        var chartTemperature = new SmoothieChart();
+        var chartLight = new SmoothieChart();
+
+        chartTemperature.addTimeSeries(ts1, { strokeStyle: 'rgba(0, 255, 0, 1)', fillStyle: 'rgba(0, 255, 0, 0.2)', lineWidth: 4 });
+        chartLight.addTimeSeries(ts2, { strokeStyle: 'rgba(0, 255, 0, 1)', fillStyle: 'rgba(0, 255, 0, 0.2)', lineWidth: 4 });
+
+        chartTemperature.streamTo(document.getElementById("chartTemperature"), 500);
+        chartLight.streamTo(document.getElementById("chartLight"), 500);
+
+        /**
+         * Read values from arduino every 1 second
+         */
+        setInterval(function () {
+            $.ajax({                                      
+                url: '/sync?micLevel=' + document.getElementById("micLevel").value,              
+                type: "get",
+                success: function(data) {
+                    document.getElementById("temperature").innerHTML = data.temp;
+                    document.getElementById("light").innerHTML = data.light;
+                    data.preferences_doorBtn.includes('yes') ? document.getElementById("prevDoorBtn").checked = true : document.getElementById("prevDoorBtn").checked = false;
+                    data.preferences_alarmBtn.includes('yes') ? document.getElementById("prevAlarmBtn").checked = true : document.getElementById("prevAlarmBtn").checked = false
+                    document.getElementById("prevLightValue").setAttribute('value', data.preferences_valueTurnLightsOnOrNot);
+                    document.getElementById("prevTemperatureValue").setAttribute('value', data.preferences_valueTurnACOnOrNot);
+                    document.getElementById("prevDatetimeAlarm").setAttribute('value', data.preferences_datetimeAlarm);
+                }
+            });
+            ts1.append(Date.now(), document.getElementById("temperature").textContent);
+            ts2.append(Date.now(), document.getElementById("light").textContent);
+        }, 1000);
+
+        /**
+         * Check if it's time to turn the alarm on, based on the scheduled datetime. Checks every hour
+         */
+        setInterval(() => {
+            $.ajax({                                      
+                url: '/datetimeAlarm',              
+                type: "get",
+                success: function(data) {
+		    let currentDate = new Date(Date.now()).toISOString();
+		    let recordedDate = new Date(data.datetimeAlarm).toISOString();
+                    if(recordedDate <= currentDate) {
+			console.log("Triggering automatic alarm because " + currentDate + " > " + recordedDate);
+			$.ajax({                                      
+                            url: '/setAutoAlarm',              
+                            type: "get"
+                        });
+                    }
+                }
+            });
+        }, 10000);
+    });
+</script>

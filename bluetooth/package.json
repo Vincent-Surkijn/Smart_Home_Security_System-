@@ -1,0 +1,21 @@
+{
+  "name": "node_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm install && node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluetooth-serial-port": "^2.2.7",
+    "body-parser": "^1.19.1",
+    "canvas": "^2.8.0",
+    "express": "^4.17.2",
+    "ip": "^1.1.5",
+    "node-gyp": "^8.4.1",
+    "p5": "^1.4.0"
+  }
+}

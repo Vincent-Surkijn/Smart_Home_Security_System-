@@ -1,0 +1,102 @@
+h1 {
+    color: #c41212;
+    font-family: arial, sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    width: auto;
+    margin-top: 0px;
+    margin-bottom: 1px;
+}
+
+div#majorFrame {
+    max-width: 850px;
+}
+
+div.box {
+    height: 70px;
+    margin: 0;
+    border: 2px solid black;
+    padding: 5px;
+    background-color: beige;
+    width: 850px;
+    display: inline-flex;
+}
+
+div.subbox {
+    height: 70px;
+    margin: 0;
+    border: 2px solid black;
+    padding: 5px;
+    background-color: beige;
+    width: 850px;
+}
+
+div.box input.textbox {
+    width: 60px;
+}
+
+body {
+    background-image: url("./background");
+    font-family: 'Lato';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+    line-height: 1.5;
+}
+
+input.bigButtons {
+    background-color: green;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 15px 32px;
+    margin-bottom: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 26px;
+    width: 850px;
+}
+
+button.submit:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+button.submit:active {
+    background-color: #3357bb;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+button.submit {
+    cursor: pointer;
+    background-color: #3357bb;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 15px 32px;
+    margin-bottom: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 26px;
+    width: 850px;
+}
+
+input.cbox {
+    width: 20px;
+    height: 20px;
+}
+
+.microphone {
+    display: inline-flex;
+}
+
+#microphone {
+    padding-left: 15px;
+}
+
+.innerDiv {
+    margin-right: 10px;
+}
+
+.innerDiv.right {
+    align-content: right;
+}
